@@ -6,7 +6,11 @@ Debian based PHP docker images.
 
 ### Flavours
 
-  - `cli`: image for CLI usage
+  - `cli`: image for CLI usage with the following extensions:
+    - intl
+    - json
+    - mbstring
+    - sqlite3 (from base)
   - `fpm`: image for FPM/FCGI usage
 
 ## Makefile
