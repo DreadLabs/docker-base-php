@@ -1,4 +1,4 @@
-FROM dreadlabs/debian-base:stretch
+FROM dreadlabs/debian-base:9-stretch
 
 MAINTAINER Thomas Juhnke <dev@van-tomas.de>
 
