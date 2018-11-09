@@ -38,7 +38,7 @@ stop:
 rm:
 	docker rm $(NAME)-$(INSTANCE)
 
-release:
+release: check-env
 	make push -e VERSION=$(VERSION)
 
 versions:
