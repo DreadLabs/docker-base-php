@@ -21,7 +21,7 @@ ifndef VERSION
 endif
 
 build: check-env
-	docker build --file $(FILE) -t $(NS)/$(REPO):$(VERSION) $(CONTEXT)
+	docker build --file $(VERSION)/$(FILE) -t $(NS)/$(REPO):$(VERSION) $(CONTEXT)
 
 push: check-env
 	docker push $(NS)/$(REPO):$(VERSION)
