@@ -8,6 +8,7 @@
 NS = dreadlabs
 FILE = Dockerfile
 CONTEXT = .
+FLAVOUR ?= cli
 
 REPO = php-base
 NAME = php-base
@@ -21,16 +22,16 @@ ifndef VERSION
 endif
 
 build: check-env
-	docker build --file $(VERSION)/$(FILE) -t $(NS)/$(REPO):$(VERSION) $(CONTEXT)
+	docker build --file $(VERSION)/$(FLAVOUR)/$(FILE) -t $(NS)/$(REPO):$(VERSION)-$(FLAVOUR) $(CONTEXT)/$(VERSION)/$(FLAVOUR)
 
 push: check-env
-	docker push $(NS)/$(REPO):$(VERSION)
+	docker push $(NS)/$(REPO):$(VERSION)-$(FLAVOUR)
 
 shell: check-env
-	docker run --rm --name $(NAME)-$(INSTANCE) --interactive --tty $(NS)/$(REPO):$(VERSION) /bin/bash
+	docker run --rm --name $(NAME)-$(INSTANCE) --interactive --tty $(NS)/$(REPO):$(VERSION)-$(FLAVOUR) /bin/bash
 
 start: check-env
-	docker run -d --name $(NAME)-$(INSTANCE) $(NS)/$(REPO):$(VERSION)
+	docker run -d --name $(NAME)-$(INSTANCE) $(NS)/$(REPO):$(VERSION)-$(FLAVOUR)
 
 stop:
 	docker stop $(NAME)-$(INSTANCE)
@@ -39,7 +40,7 @@ rm:
 	docker rm $(NAME)-$(INSTANCE)
 
 release: check-env
-	make push -e VERSION=$(VERSION)
+	make push -e VERSION=$(VERSION) FLAVOUR=$(FLAVOUR)
 
 versions:
 	docker images | grep $(NS)/$(REPO)
